@@ -227,7 +227,7 @@ function find(connectionName, collectionName, criteria, cb, round) {
   // If you need to access your private data for this collection:
   var db = registry.db(collectionName);
 
-  console.log('GETTING DB FOR "%s"."%s"', connectionName, collectionName);
+  // console.log('GETTING DB FOR "%s"."%s"', connectionName, collectionName);
   // console.log('got: ',db);
   if (!db) {
     return cb((function buildError(){
@@ -521,7 +521,7 @@ adapter.merge = function adapterMerge(connectionName, collectionName, id, attrs,
 
     var newdoc = docForIngestion(doc);
     //console.log('----------Heres our final doc',newdoc._id,newdoc._rev);
-    console.trace();
+    // console.trace();
 
     db.insert(newdoc, id, saved);
   }
