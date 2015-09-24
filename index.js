@@ -565,7 +565,7 @@ adapter.view = function view(connectionName, collectionName, viewName, options, 
     if (err && err.status_code == 404 && round < 2)
       populateView(connectionName, collectionName, viewName, populatedView);
     else if (err) cb(err);
-    else cb(null, (results && results.rows && results.rows || []).map(prop('value')).map(docForReply));
+    else cb(null, results);
   }
 
   function populatedView(err) {
