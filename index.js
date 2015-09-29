@@ -255,7 +255,7 @@ function find(connectionName, collectionName, criteria, cb, round) {
   // Handle case where no criteria is specified at all
   // (list all documents in the couch collection)
   if (queriedAttributes.length === 0) {
-    console.log('Queried Attributes" (aka criteria\'s WHERE clause) doesn\'t contain any values-- listing everything!');
+    // console.log('Queried Attributes" (aka criteria\'s WHERE clause) doesn\'t contain any values-- listing everything!');
 
     // All docs
     dbOptions.include_docs = true;
