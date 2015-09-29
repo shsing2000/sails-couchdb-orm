@@ -419,13 +419,18 @@ adapter.update = function update(connectionName, collectionName, options, values
 adapter.destroy = function destroy(connectionName, collectionName, options, cb) {
   collectionName = sanitizeCollectionName(collectionName);
   var db = registry.db(collectionName);
+  var deleted = [];
 
   // Find the record
-  adapter.find(connectionName,collectionName,options, function(err,docs) {
-    async.each(docs,function(item) { // Shoud have only one.
+  adapter.find(connectionName, collectionName, options, function(err, docs) {
+    async.each(docs, function(item, callback) { // Shoud have only one.
       db.destroy(item.id, item.rev, function(err, doc) {
-        cb(err,[item]); // Waterline expects an array as result.
+        if (err) return callback(err);
+        deleted.push(item);
+        callback(err);
       });
+    }, function(err) {
+      cb(err, deleted); // Waterline expects an array as result.
     });
   });
 };
