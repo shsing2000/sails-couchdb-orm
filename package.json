@@ -1,6 +1,6 @@
 {
   "name": "sails-couchdb-orm",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "CouchDB adapter for Sails",
   "main": "index.js",
   "scripts": {
