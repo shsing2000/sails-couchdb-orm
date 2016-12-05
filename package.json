@@ -4,7 +4,7 @@
   "description": "CouchDB adapter for Sails",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/.bin/mocha test/unit -t 10000 && node test/integration/runner -R spec -b"
+    "test": "snyk test && node_modules/.bin/mocha test/unit -t 10000 && node test/integration/runner -R spec -b"
   },
   "repository": {
     "type": "git",
@@ -27,24 +27,28 @@
   ],
   "contributors": [
     "Matheus Hoffmann Silva <hoffmann.matheus@gmail.com>",
-    "Mike McNeil <@mikermcneil>"
+    "Mike McNeil <@mikermcneil>",
+    "Lan Nguyen",
+    "John Hofrichter",
+    "Peter A. Tariche"
   ],
   "license": "MIT",
   "readmeFilename": "README.md",
   "dependencies": {
-    "nano": "~5.7.1",
-    "xtend": "~2.1.2",
+    "async": "^0.7.0",
     "cookie": "~0.1.1",
-    "handlebars": "~2.0.0-alpha.2",
     "deep-merge": "~0.3.1",
+    "handlebars": "^4.0.5",
+    "nano": "^5.11.0",
     "underscore": "^1.6.0",
-    "async": "^0.7.0"
+    "xtend": "~2.1.2"
   },
   "devDependencies": {
     "waterline-adapter-tests": "~0.10.0",
     "mocha": "*",
     "root-require": "~0.2.0",
-    "captains-log": "~0.10.6"
+    "captains-log": "~0.10.6",
+    "snyk": "^1.21.2"
   },
   "sailsAdapter": {
     "sailsVersion": "~0.10.0",
