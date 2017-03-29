@@ -288,7 +288,6 @@ function find(connectionName, collectionName, criteria, cb, round) {
     if (Array.isArray(id)) {
       // format the query into expected format
       var ids = { keys: id };
-      console.log('query', ids);
       // fetch maps to nano fetch_docs or fetchDocs depending on version
       db.fetch(ids, dbOptions, function(err, doc) {
         if (err) {
