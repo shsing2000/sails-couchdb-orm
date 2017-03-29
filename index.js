@@ -289,15 +289,37 @@ function find(connectionName, collectionName, criteria, cb, round) {
       // format the query into expected format
       var ids = { keys: id };
       // fetch maps to nano fetch_docs or fetchDocs depending on version
-      db.fetch(ids, dbOptions, function(err, doc) {
+      db.fetch(ids, dbOptions, function(err, docs) {
         if (err) {
           if (err.status_code == 404) {
             return cb(null, []);
           }
           return cb(err);
         }
-        var docs = doc ? [doc] : [];
-        return cb(null, docs.map(docForReply));
+
+        // special mapping needed since docs is in format:
+        /*
+        {
+          total_rows: 123,
+          offset: 0,
+          rows: [
+            {
+              id: '',
+              key: '',
+              value: {},
+              doc: {}
+            }
+            ...
+          ]
+        }
+        */
+        var rows = docs.rows || [];
+        return cb(
+          null,
+          rows.map(function mapDocs(doc) {
+            return docForReply(doc.doc);
+          })
+        );
       });
       return;
     }
