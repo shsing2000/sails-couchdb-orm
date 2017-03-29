@@ -283,6 +283,26 @@ function find(connectionName, collectionName, criteria, cb, round) {
   if (queriedAttributes.length == 1 && (queriedAttributes[0] == 'id' || queriedAttributes[0] == '_id')) {
     var id = criteria.where.id || criteria.where._id;
 
+    // Assumption that a single key criteria that is an Array
+    // is a bulk fetch: https://wiki.apache.org/couchdb/HTTP_Bulk_Document_API
+    if (Array.isArray(id)) {
+      // format the query into expected format
+      var ids = { keys: id };
+      console.log('query', ids);
+      // fetch maps to nano fetch_docs or fetchDocs depending on version
+      db.fetch(ids, dbOptions, function(err, doc) {
+        if (err) {
+          if (err.status_code == 404) {
+            return cb(null, []);
+          }
+          return cb(err);
+        }
+        var docs = doc ? [doc] : [];
+        return cb(null, docs.map(docForReply));
+      });
+      return;
+    }
+
     db.get(id, dbOptions, function(err, doc) {
       if (err) {
         if (err.status_code == 404) {
